@@ -1,5 +1,8 @@
 using HTTP
 
-HTTP.serve("127.0.0.1", 8081) do request::HTTP.Request
-    return HTTP.Response("Hello, World!")
-end
+const ROUTER = HTTP.Router()
+
+HTTP.register!(ROUTER, "GET", "/", req->HTTP.Response(200, "Hi"))
+# You can register more
+HTTP.register!(ROUTER, "GET", "/bye", req->HTTP.Response(200, "Bye!"))
+HTTP.serve(ROUTER)
